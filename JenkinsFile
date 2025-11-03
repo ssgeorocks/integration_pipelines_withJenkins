@@ -9,14 +9,19 @@ pipeline {
 
     stages {
         stage('AWS'){
-            agent any
+            agent {
+                docker{
+                    image 'amazon/aws-cli'
+                    args "--entrypoint=''"
+
+                }
+            }
             steps{
                 sh '''
             docker run --rm amazon/aws-cli --version
                 '''
             }
         }
-
         ///* 
         //This is a comment in Jenkins.
         stage('Build w/ Docker') {
